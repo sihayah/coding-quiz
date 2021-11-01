@@ -1,0 +1,64 @@
+
+
+What symbol indicates a tag?
+
+commas
+quotes
+exclamation marks
+angle brackets
+
+Which is the correct format for changing text color to "red" in CSS?
+
+classname { background-color: red; }
+classname { font-family: red; }
+classname { font-style: red; }
+classnmae { color: red; }
+
+Which of the following is a universal selector in CSS?
+
+.U
+$
+*
++
+
+Media queries are used to:
+
+create responsive layouts
+adjust to viewport width
+modify site or app for different device sizes
+all of the above
+
+Inside which HTML element do we place the JavaScript?
+
+<javascript>
+<script>
+<js>
+<logic>
+
+What is the correct syntax for referring to an external script called myscript.js in HTML?
+
+<script = "myscript.js">
+<script scr = "myscript.js">
+<script name = "myscript.js">
+<script href = "myscript.js">
+
+How would you write Hello in the devtools console?
+
+msg("hello")
+console.log("hello")
+console.log.hello
+alert(hello)
+
+How do you call a function named myFunction?
+
+call = myFunction
+call myFunction()
+var myFunction = function()
+myFunction()
+
+What is the correct syntax for an IF statement for executing some code if "i" is NOT equal to 5?
+
+if (i != 5)
+if i > 5
+if (i === 5)
+if i =! 5
