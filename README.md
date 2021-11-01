@@ -1,5 +1,9 @@
 # CODE QUIZ
 
+![code quiz](landing.png "code-quiz application")
+
+https://sihayah.github.io/coding-quiz/
+
 Intended behavior:
 
 This is a coding quiz application composed with dynamically generated elements composed primarily in JavaScript with CSS style. 
