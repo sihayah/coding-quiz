@@ -228,14 +228,14 @@ startQuizTimer = (time) => {
 };
 let userInitial;
 
-function getName () {
-    window.prompt("Enter your initials to save highscore")
-}; 
+
 
 var userHighScore = {
     userName: userInitial,
     userScore: score
 };
+
+var updatedUserHighScore =[];
 
 
 gameOverScreen = () => {
@@ -245,17 +245,16 @@ gameOverScreen = () => {
     gameOver.innerHTML="GAME OVER";
     quizContainer.appendChild(gameOver);
 
-    var highScoreData = localStorage.getItem('highscore');
-    highScoreData = highScoreData || 0;
-
     setTimeout(function(){ gameOver.remove(); }, 3000);
         if (score > 0){
             window.alert("SCORE =" + score)
-            userInitial = getName();
+            userInitial = window.prompt("Enter your initials to save highscore");
+            console.log(userInitial)
             userName = userInitial;
-            localStorage.setItem("userScore", score);
-            localStorage.setItem("userName", userHighScore.userName);
-            console.log(userHighScore.userScore, userHighScore.userName);
+            localStorage.setItem("userScore", JSON.stringify(score));
+            localStorage.setItem("userName", JSON.stringify(userInitial));
+            updatedUserHighScore.push(userHighScore);
+           
 
     };
     showHighscore();
@@ -284,7 +283,9 @@ showHighscore = () => {
     highScoreContainer.appendChild(highscoreList);
     var highscoreListItem = document.createElement("li");
         highscoreListItem.className = "highscore-li";
-        highscoreListItem.textContent = userHighScore;
+    var savedHighScore = localStorage.getItem("userHighScore")
+    savedHighScore = JSON.parse(savedHighScore);
+        highscoreListItem.textContent = userInitial + ": "+score;
     highscoreList.appendChild(highscoreListItem);
     var exitHighscore = document.createElement("button");
     exitHighscore.className = "all-btn";
