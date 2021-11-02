@@ -130,12 +130,12 @@ appendQuestion = () => {
     questionContainer.appendChild(disappearingContainer);
     questionCounter++;
     var questionIndex = Math.floor(Math.random() * availableQuestions.length);
+    
 
     currentQuestion = availableQuestions[questionIndex];
     questionH.textContent = currentQuestion.question;
     disappearingContainer.appendChild(questionH);
     var choices = Object.values(currentQuestion.choices);
-
     choices.forEach((choice, index, correctAnswer) => {
         var choiceNum = (index);
         choice.setAttribute = 'number', 'choice';            
@@ -150,6 +150,9 @@ appendQuestion = () => {
 
     choiceBtn.addEventListener('click', (event) => {
         acceptingAnswers = false;
+        // if (currentQuestion = remove){
+        //     changeQuestion();
+        // };
         if (choiceNum === currentQuestion.correctAnswer){
             var correctText = document.createElement("p");
             correctText.innerText= "-------CORRECT!!";
@@ -169,13 +172,17 @@ appendQuestion = () => {
         }
     });  
 
- acceptingAnswers =true;
-    availableQuestions.splice(questionIndex, 1, currentQuestion);
+    acceptingAnswers =true;
+    remove = () => {
+        availableQuestions.splice(questionIndex, 1, currentQuestion);
+    };
+    console.log(remove);
 
     function changeQuestion() {
         if (availableQuestions.length>0){
-        disappearingContainer.remove();
-        appendQuestion();
+            remove();
+            disappearingContainer.remove();
+            appendQuestion();
         }
     };
     
