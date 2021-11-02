@@ -6,6 +6,7 @@
     margin: 0;
 }
 
+/* styles for elements from intro */
 h1 {
     font-size: 48px;
     margin-bottom: 5vh;
@@ -29,6 +30,7 @@ header {
     margin-left: 13vh;
 }
 
+/* style for all buttons */
 .all-btn {
     display: inline-block;
     
@@ -47,6 +49,7 @@ header {
     border: 0.16em solid rgba(255,255,255,1);
 }
 
+/* style for elements relative to highscore container */
 .highscore-p:hover {
 
     opacity: 50%;
@@ -77,6 +80,7 @@ header {
     background-color: rgb(47, 26, 58);
 }
 
+/* runQuestion sequence styles */
 .question {
     padding: 2vh;
     font-size: 3em;

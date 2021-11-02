@@ -1,5 +1,4 @@
 quizBody = document.querySelector("body");
-
 var headerEl = document.createElement("header");
 quizBody.appendChild(headerEl);
 
@@ -11,6 +10,7 @@ let acceptingQuestions = false;
 let choices = [];
 let widthValue = 0;
 
+// all questions are listed in Arr along with choices and correct answers
 var questionArr = [
     {
     question: "What symbol indicates a tag?",
@@ -108,6 +108,9 @@ let counter;
 
 
 // Quiz intro screen 
+    // func initiated by pageload, intro elements are appended
+    // questions are moved into questionArr
+    // upon start button click, intro elements are replaced by question container and runQuiz is called
 startQuiz = () => {
     questionCounter= 0;
     score= 0;
@@ -125,6 +128,8 @@ startQuiz = () => {
 
 };
 
+// question and elements are defined and appended
+// question order is randomized
 appendQuestion = () => {
     var disappearingContainer = document.createElement("div");
     questionContainer.appendChild(disappearingContainer);
@@ -148,6 +153,9 @@ appendQuestion = () => {
         disappearingContainer.appendChild(buttonDiv);
         buttonDiv.appendChild(choiceBtn);
 
+        // upon click answers are marked as correct or incorrect
+        // score is incremented if correct
+        // after half a second changeQuestion() is called to move through the next question
     choiceBtn.addEventListener('click', (event) => {
         acceptingAnswers = false;
         if (choiceNum === currentQuestion.correctAnswer){
@@ -156,7 +164,6 @@ appendQuestion = () => {
             correctText.className= "result-p";
             disappearingContainer.appendChild(correctText);
             score = score+1;
-            console.log(score);
             setTimeout(function(){ changeQuestion(); }, 500);
         }
         else {
@@ -184,7 +191,7 @@ appendQuestion = () => {
     });
 };
 
-
+// timer is reset and appendQuestion is called to start running through questions
 runQuiz = () => {
     timeLeft = 15;
     widthValue = 15;
@@ -198,7 +205,6 @@ runQuiz = () => {
 };
 
 // TIMER
-
 setQuizTimer = (time) => {
     counter = setInterval(timer, 1000);
     function timer () {
@@ -237,7 +243,7 @@ var userHighScore = {
 
 var updatedUserHighScore =[];
 
-
+// after time runs out this screen will appear then high scores then intro will be called by reload 
 gameOverScreen = () => {
 
     var gameOver= document.createElement("p");
@@ -270,7 +276,7 @@ highScoreP.textContent ="VIEW HIGH SCORES"
 headerEl.appendChild(highScoreP);
 
 
-
+// displays a list of previous highscores
 showHighscore = () => {
     var highScoreContainer = document.createElement("div");
         highScoreContainer.className = "highscore-container"
