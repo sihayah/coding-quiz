@@ -23,12 +23,52 @@ var questionArr = [
     correctAnswer:3
     },
     {
+        question: "Which of the following is a utility function in jQuery?",
+        choices: {
+            1: "jQuery.each()", 
+            2: "jQuery.parseJSON()",
+            3: "jQuery.noConflict()",
+            4: "jQuery.Conflict()"
+        },
+        correctAnswer: 1
+        },
+    {
+        question: "Which of the following is a single global function defined in the jQuery library?",
+        choices: {
+            1: "jQuery()", 
+            2: "$()",
+            3: "Queryanalysis()",
+            4: "global()"
+        },
+        correctAnswer: 0
+        },
+    {
+        question: "$.foo() is equivalent to:",
+        choices: {
+            1: "javascript.foo()", 
+            2: "document.foo()",
+            3: "jQuery.foo()",
+            4: "None of the above"
+        },
+        correctAnswer: 2
+        },
+    {
+    question: "Which built-in method returns the character at the specified index?",
+    choices: {
+        1: "characterAt()", 
+        2: "getCharAt()",
+        3: "charAt()",
+        4: "None of the above"
+    },
+    correctAnswer: 2
+    },    
+    {
     question: "Which is the correct format for changing text color to 'red' in CSS?",
     choices: {
         1: "classname { background-color: red; }", 
         2: "classname { font-family: red; }",
         3: "classname { font-style: red; }",
-        4: "classnmae { color: red; }"
+        4: "classname { color: red; }"
     },
     correctAnswer: 3
     },
@@ -177,6 +217,7 @@ appendQuestion = () => {
         availableQuestions.splice(questionIndex, 1, currentQuestion);
     };
     console.log(remove);
+    });
 
     function changeQuestion() {
         if (availableQuestions.length>0){
@@ -184,12 +225,10 @@ appendQuestion = () => {
             disappearingContainer.remove();
             appendQuestion();
         }
-    };
-    
-   
-    
-    });
+    };    
 };
+
+
 
 
 runQuiz = () => {
