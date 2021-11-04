@@ -133,6 +133,32 @@ header {
     padding-left: 2vh;
 } 
 
+.form-label{
+    font-size: 1.75em;
+    font-weight: 300;
+    display: inline;
+    padding-left: 1.25em;
+}
+.form-input {
+    padding: .75em;
+    margin: 2em;
+}
+
+.form-btn {
+    text-align: left;
+    align-self: left;
+    display: inline;
+    border-radius: 2em;
+    border: none;
+    padding: 0.1em .75em;
+    margin: 0.25em;
+    font-weight: 300;
+    background-color:  rgb(109, 60, 133);
+    transition: all 0.2s;
+}
+.form-btn:hover {
+    border: 0.16em solid rgba(255,255,255,1);
+}
   /* MEDIA QUERY FOR larger screens */
   @media screen and (min-width: 600px) {
 

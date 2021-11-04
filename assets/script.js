@@ -3,7 +3,6 @@ quizBody = document.querySelector("body");
 var headerEl = document.createElement("header");
 quizBody.appendChild(headerEl);
 
-
 let questionCounter = 0;
 let score = 0;
 let availableQuestions= [];
@@ -146,7 +145,6 @@ quizTimer.className = "quiz-timer";
 let counterLine;
 let counter;
 
-
 // Quiz intro screen 
 startQuiz = () => {
     questionCounter= 0;
@@ -164,67 +162,72 @@ startQuiz = () => {
     });
 
 };
+// generate question text and choice buttons
+// add to score if question is answered correctly
+// change questions between answers
 
 appendQuestion = () => {
+    
     var disappearingContainer = document.createElement("div");
     questionContainer.appendChild(disappearingContainer);
     questionCounter++;
     var questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    
+    console.log('index',questionIndex)
+
+
 
     currentQuestion = availableQuestions[questionIndex];
     questionH.textContent = currentQuestion.question;
     disappearingContainer.appendChild(questionH);
     var choices = Object.values(currentQuestion.choices);
+
     choices.forEach((choice, index, correctAnswer) => {
+        // debugger;
         var choiceNum = (index);
-        choice.setAttribute = 'number', 'choice';            
+        console.log(choiceNum)        
         choice.innerText = currentQuestion[choiceNum + 'choice'];
         var choiceBtn = document.createElement("button");
         choiceBtn.className = "choice-btn";
         choiceBtn.setId
-        choiceBtn.innerText= choice;
+        choiceBtn.innerText= (choiceNum+1) + ": " +choice;
         var buttonDiv = document.createElement("div");
         disappearingContainer.appendChild(buttonDiv);
         buttonDiv.appendChild(choiceBtn);
 
-    choiceBtn.addEventListener('click', (event) => {
-        acceptingAnswers = false;
-        // if (currentQuestion = remove){
-        //     changeQuestion();
-        // };
-        if (choiceNum === currentQuestion.correctAnswer){
-            var correctText = document.createElement("p");
-            correctText.innerText= "-------CORRECT!!";
-            correctText.className= "result-p";
-            disappearingContainer.appendChild(correctText);
-            score = score+1;
-            console.log(score);
-            setTimeout(function(){ changeQuestion(); }, 500);
-        }
-        else {
-            var incorrectText = document.createElement("p");
-            incorrectText.innerText= "-------INCORRECT!!";
-            incorrectText.className= "result-p"
-            disappearingContainer.appendChild(incorrectText);
-            setTimeout(function(){ changeQuestion(); }, 500);
+        choiceBtn.addEventListener('click', (event) => {
+            if (choiceNum === currentQuestion.correctAnswer){
+                var correctText = document.createElement("p");
+                correctText.innerText= "-------CORRECT!!";
+                correctText.className= "result-p";
+                disappearingContainer.appendChild(correctText);
+                score = score+1;
+                console.log(score);
+                setTimeout(function(){ changeQuestion(); }, 500);
+            }
+            else {
+                var incorrectText = document.createElement("p");
+                incorrectText.innerText= "-------INCORRECT!!";
+                incorrectText.className= "result-p"
+                disappearingContainer.appendChild(incorrectText);
+                setTimeout(function(){ changeQuestion(); }, 500);
 
-        }
-    });  
+            }
+        });  
 
-    acceptingAnswers =true;
-    remove = () => {
-        availableQuestions.splice(questionIndex, 1, currentQuestion);
-    };
-    console.log(remove);
     });
+   
+   
 
+    // replace answered questin with new
     function changeQuestion() {
         if (availableQuestions.length>0){
-            remove();
+            availableQuestions.splice(questionIndex, 1);
+            console.log('length of availableQuestions', availableQuestions.length);
             disappearingContainer.remove();
             appendQuestion();
         }
+        else { 
+            gameOver};
     };    
 };
 
@@ -232,7 +235,7 @@ appendQuestion = () => {
 
 
 runQuiz = () => {
-    timeLeft = 15;
+    timeLeft = 3;
     widthValue = 15;
     acceptingQuestions =true;
     clearInterval(counter);
@@ -257,8 +260,8 @@ setQuizTimer = (time) => {
 
             quizTimer.remove();
             questionContainer.remove();
-            gameOverScreen();
             clearInterval(counterLine);
+            gameOver();
         }
     }
 };
@@ -272,40 +275,69 @@ startQuizTimer = (time) => {
         }
     }
 };
-let userInitial;
 
 
-
-var userHighScore = {
-    userName: userInitial,
-    userScore: score
+var highScores = JSON.parse(localStorage.getItem("highscores")) || [];
+if (!highScores) {
+    highScores = {
+        name: [],
+        userscore: []
+    };
 };
 
-var updatedUserHighScore =[];
+var MAX_HIGH_SCORES = 7;
 
 
-gameOverScreen = () => {
+// intials save form
+var initialsForm = document.createElement("form");
+initialsForm.className = ("initials-form");
+var formLabel = document.createElement("label");
+formLabel.className = "form-label";
+formLabel.textContent = "Enter initials to save highscore:";
+var formInput = document.createElement("input");
+formInput.className= "form-input"
+formInput.setAttribute("type", "text");
+formInput.setAttribute("value", "");
+var formButton = document.createElement("button");
+formButton.className=("all-btn");
+formButton.textContent=("Submit");
+
+initialsForm.addEventListener('submit', (event) =>{
+    event.preventDefault();
+
+    var x = (formInput.value);
+    var userInitials = x;
+    
+    var newHighScore = {
+        name: userInitials,
+        userscore: score
+    }   
+
+    console.log(newHighScore)
+    let values = Object.values(highScores);
+    highScores.push(newHighScore)
+    console.log(highScores)
+    highScores.sort((a, b) => b.userscore - a.userscore);
+    highScores.splice(7);
+    localStorage.setItem("highscores", JSON.stringify(highScores));
+    initialsForm.remove();
+    showHighscore();
+});
+
+
+initialsForm.appendChild(formLabel);
+initialsForm.appendChild(formInput);
+initialsForm.appendChild(formButton);
+    
+gameOver = () => {
+ 
+    quizBody.appendChild(initialsForm);
+
 
     var gameOver= document.createElement("p");
     gameOver.className = "game-over-p";
     gameOver.innerHTML="GAME OVER";
     quizContainer.appendChild(gameOver);
-
-    setTimeout(function(){ gameOver.remove(); }, 3000);
-        if (score > 0){
-            window.alert("SCORE =" + score)
-            userInitial = window.prompt("Enter your initials to save highscore");
-            console.log(userInitial)
-            userName = userInitial;
-            localStorage.setItem("userScore", JSON.stringify(score));
-            localStorage.setItem("userName", JSON.stringify(userInitial));
-            updatedUserHighScore.push(userHighScore);
-           
-
-    };
-    showHighscore();
-    setTimeout(function(){ location.reload(); }, 7000);
-    
 };
 
 
@@ -317,22 +349,29 @@ headerEl.appendChild(highScoreP);
 
 
 
-showHighscore = () => {
+function showHighscore () {
     var highScoreContainer = document.createElement("div");
-        highScoreContainer.className = "highscore-container"
+    highScoreContainer.className = "highscore-container"
     var highscoreH2 = document.createElement("h2");
-        highscoreH2.className = "highscore-h2";
-        highscoreH2.innerText = "^^^highscores";
+    highscoreH2.className = "highscore-h2";
+    highscoreH2.innerText = "^^^highscores";
     highScoreContainer.appendChild(highscoreH2);
     var highscoreList = document.createElement("ol");
-        highscoreList.className = "highscore-ol";
+    highscoreList.className = "highscore-ol";
     highScoreContainer.appendChild(highscoreList);
-    var highscoreListItem = document.createElement("li");
-        highscoreListItem.className = "highscore-li";
-    var savedHighScore = localStorage.getItem("userHighScore")
-    savedHighScore = JSON.parse(savedHighScore);
-        highscoreListItem.textContent = userInitial + ": "+score;
+
+    console.log('highscores', highScores[0].name)
+
+    for (var i=0; i<highScores.length; i++){
+        var highscoreListItem = document.createElement("li");
+    highscoreListItem.className = "highscore-li";
+    highscoreListItem.textContent = `${highScores[i].name} - Score: ${highScores[i].userscore}`;
     highscoreList.appendChild(highscoreListItem);
+    }
+
+    // highScores = JSON.parse(localStorage.getItem("highscores"));
+
+
     var exitHighscore = document.createElement("button");
     exitHighscore.className = "all-btn";
     exitHighscore.innerText = "EXIT highscores";
