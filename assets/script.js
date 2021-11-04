@@ -235,7 +235,7 @@ appendQuestion = () => {
 
 
 runQuiz = () => {
-    timeLeft = 3;
+    timeLeft = 25;
     widthValue = 15;
     acceptingQuestions =true;
     clearInterval(counter);
